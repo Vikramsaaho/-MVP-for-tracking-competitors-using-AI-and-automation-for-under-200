@@ -1,0 +1,81 @@
+import requests
+from bs4 import BeautifulSoup
+
+def track_website(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    updates = soup.find_all(['h1', 'h2', 'p'])  # Extract headers and paragraphs
+    return [update.text for update in updates]
+
+competitor_url = "https://example.com"
+print(track_website(competitor_url))
+import tweepy
+
+# Replace with your credentials
+consumer_key = "your_consumer_key"
+consumer_secret = "your_consumer_secret"
+access_token = "your_access_token"
+access_token_secret = "your_access_token_secret"
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+
+tweets = api.user_timeline(screen_name='CompetitorHandle', count=5)
+for tweet in tweets:
+    print(tweet.text)
+
+import requests
+
+url = 'https://newsapi.org/v2/everything'
+params = {
+    'q': 'CompetitorName',
+    'apiKey': 'your_newsapi_key'
+}
+response = requests.get(url, params=params)
+print(response.json())
+import openai
+
+openai.api_key = "your_openai_api_key"
+
+def analyze_data(data):
+    prompt = f"Analyze the following competitor data and summarize key insights:\n{data}"
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=200
+    )
+    return response['choices'][0]['text']
+
+data = "Competitor launched a new product on their website. Twitter mentions increased."
+print(analyze_data(data))
+import smtplib
+
+def send_email(subject, body, to_email):
+    from_email = "your_email@gmail.com"
+    password = "your_password"
+
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login(from_email, password)
+        message = f"Subject: {subject}\n\n{body}"
+        server.sendmail(from_email, to_email, message)
+
+send_email(
+    subject="Competitor Update Alert",
+    body="Competitor launched a new product.",
+    to_email="recipient_email@gmail.com"
+)
+pip install streamlit
+import streamlit as st
+
+st.title("Competitor Tracking Dashboard")
+st.header("Latest Updates")
+
+data = ["Competitor launched a new product", "Price changes detected"]
+for update in data:
+    st.write(f"- {update}")
+#### FOR RUN THE APP 
+streamlit run app.py
+
+
